@@ -3,6 +3,7 @@ import Toolbar from "./components/Toolbar/Toolbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import NewDish from "./containers/NewDish/NewDish";
 import AdminDishes from "./containers/AdminDishes/AdminDishes";
+import EditDish from "./containers/EditDish/EditDish";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/" element={<Navigate to="/admin/dishes" />} />
                 <Route path="/admin/dishes" element={<AdminDishes/>}/>
                 <Route path="/admin/dishes/new-dishes" element={<NewDish />} />
+                <Route path="/admin/dishes/edit-dish/:id" element={<EditDish />}/>
                 <Route path="*" element={<h1>Not found!</h1>}/>
             </Routes>
         </main>

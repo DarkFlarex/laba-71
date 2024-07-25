@@ -1,5 +1,6 @@
 import {Dish} from "../../types";
 import React from "react";
+import {Link} from "react-router-dom";
 
 interface Props {
     dish:Dish;
@@ -21,8 +22,11 @@ const AdminDishesItem:React.FC<Props> = ({dish}) => {
                     />
                     <div className="contact-info">
                         <h5>{dish.title}</h5>
-                        <span>{dish.price}</span>
+                        <span>{dish.price} KGS</span>
                     </div>
+                    <Link className="btn btn-primary" to={`/admin/dishes/edit-dish/${dish.id}`}>
+                        Edit
+                    </Link>
                 </div>
             </div>
         </>
