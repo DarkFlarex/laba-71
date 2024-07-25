@@ -42,10 +42,10 @@ const DishForm: React.FC<Props> = ({
         });
     };
     return (
-        <form onSubmit={onFormSubmit}>
-            <h4>{existingDish ? 'Edit dish' : 'Add new dish'}</h4>
-            <div className="form-group">
-                <label htmlFor="title">title</label>
+        <form className="col-5 text-start" onSubmit={onFormSubmit}>
+            <h4 className="">{existingDish ? 'Edit dish' : 'Add new dish'}</h4>
+            <div className="form-group mb-3">
+                <label htmlFor="title">Title:</label>
                 <input
                     type="text"
                     name="title"
@@ -56,8 +56,8 @@ const DishForm: React.FC<Props> = ({
                     value={dishMutation.title}
                 />
             </div>
-            <div className="form-group">
-                <label htmlFor="image">Image</label>
+            <div className="form-group mb-3">
+                <label htmlFor="image">Image:</label>
                 <input
                     type="url"
                     name="image"
@@ -68,8 +68,8 @@ const DishForm: React.FC<Props> = ({
                     value={dishMutation.image}
                 />
             </div>
-            <div className="form-group">
-                <label htmlFor="price">Price</label>
+            <div className="form-group mb-3">
+                <label htmlFor="price">Price:</label>
                 <input
                     type="number"
                     name="price"
