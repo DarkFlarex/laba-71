@@ -1,13 +1,16 @@
 import {Dish} from "../../types";
 import React from "react";
 import {Link} from "react-router-dom";
+import ButtonSpinner from "../Spinner/ButtonSpinner";
 
 interface Props {
     dish:Dish;
+    onDelete: VoidFunction;
+    deleteLoading: false | string;
 }
 
 
-const AdminDishesItem:React.FC<Props> = ({dish}) => {
+const AdminDishesItem:React.FC<Props> = ({dish, onDelete,deleteLoading}) => {
     return (
         <>
             <div className="card mb-3 p-3 col-5 border border-secondary">
@@ -27,6 +30,14 @@ const AdminDishesItem:React.FC<Props> = ({dish}) => {
                     <Link className="btn btn-primary" to={`/admin/dishes/edit-dish/${dish.id}`}>
                         Edit
                     </Link>
+                    <button
+                        className="btn btn-danger"
+                        onClick={onDelete}
+                        disabled={deleteLoading ? deleteLoading === dish.id : false}
+                    >
+                        {deleteLoading && deleteLoading === dish.id && (<ButtonSpinner/>)}
+                        Delete
+                    </button>
                 </div>
             </div>
         </>

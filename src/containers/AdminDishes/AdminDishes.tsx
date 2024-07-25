@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectDishes, selectFetchDishesLoading} from "../../store/dishesSlice";
+import {selectDeleteDishLoading, selectDishes, selectFetchDishesLoading} from "../../store/dishesSlice";
 import AdminDishesItem from "../../components/AdminDishesItem/AdminDishesItem";
-import {fetchDishes} from "../../store/dishesThunks";
+import {deleteDish, fetchDishes} from "../../store/dishesThunks";
 import Spinner from "../../components/Spinner/Spinner";
 import {Link} from "react-router-dom";
 
@@ -10,6 +10,13 @@ const AdminDishes = () => {
     const dispatch = useAppDispatch();
     const dishes = useAppSelector(selectDishes);
     const dishesLoading = useAppSelector(selectFetchDishesLoading);
+    const deleteLoading = useAppSelector(selectDeleteDishLoading);
+
+
+    const removeDish = async (id: string) => {
+        await dispatch(deleteDish(id));
+        await dispatch(fetchDishes());
+    };
 
     useEffect(() => {
         dispatch(fetchDishes());
@@ -25,7 +32,12 @@ const AdminDishes = () => {
                 <Spinner/>
             ) : (
                 dishes.map((dish) => (
-                    <AdminDishesItem key={dish.id} dish={dish}/>
+                    <AdminDishesItem
+                        key={dish.id}
+                        dish={dish}
+                        onDelete={() => removeDish(dish.id)}
+                        deleteLoading={deleteLoading}
+                    />
                 ))
             )}
         </>

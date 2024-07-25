@@ -60,3 +60,10 @@ export const updateDish = createAsyncThunk<void, UpdateDishArg, { state: RootSta
         await axiosApi.put(`/dishes/${id}.json`, apiDish);
     },
 );
+
+export const deleteDish = createAsyncThunk<void, string, { state: RootState }>(
+    'dishes/deleteDish',
+    async (dishId) => {
+        await axiosApi.delete('/dishes/' + dishId + '.json');
+    },
+);
