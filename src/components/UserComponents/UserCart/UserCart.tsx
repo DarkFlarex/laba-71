@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserCartDishes from "./UserCartDishes";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {clearCart, selectCartDishes} from "../../../store/cartSlice";
+import {clearCart, selectCartDishes, updateDishAmount} from "../../../store/cartSlice";
 import Modal from "../Modal/Modal";
 import axiosApi from "../../../axiosApi";
 import {toast} from "react-toastify";
@@ -19,15 +19,17 @@ const UserCart: React.FC= () => {
 
     if (cartDishes.length > 0) {
         cart = (
-            <>
+            <div className="alert border rounded-2">
                 <UserCartDishes cartDishes={cartDishes} />
-                <button
-                    className="w-100 btn btn-primary"
-                    onClick={() => setShowModal(true)}
-                >
-                    Checkout
-                </button>
-            </>
+                <div className="text-end">
+                    <button
+                        className="w-25 btn btn-primary"
+                        onClick={() => setShowModal(true)}
+                    >
+                        Checkout
+                    </button>
+                </div>
+            </div>
         );
     }
 
@@ -53,17 +55,34 @@ const UserCart: React.FC= () => {
         }
     };
 
+    const RemoveDishFromOrder = (dishId: string) => {
+        dispatch(updateDishAmount(dishId));
+    };
+
+    useEffect(() => {
+        if (cartDishes.length === 0 && showModal) {
+            setShowModal(false);
+        }
+    }, [cartDishes, showModal]);
+
     return (
-        <>
-            <h4>Cart</h4>
+        <div className="cart col-6">
+            <h4 className="text-start mb-3">Cart</h4>
             {cart}
             <Modal show={showModal} title="Your Order" onClose={() => setShowModal(false)}>
                 <div className="modal-body row">
                     {cartDishes.map(cartDish => (
-                        <div className="col-12 d-flex align-items-center border rounded-2 p-2 mb-2" key={cartDish.dish.id}>
+                        <div className=" d-flex col-12 align-items-center border rounded-2 p-2 mb-2"
+                             key={cartDish.dish.id}>
                             <h5 className="col-4">{cartDish.dish.title}</h5>
-                            <span className="col-4">x{cartDish.amount}</span>
-                            <span className="col-4">{(cartDish.dish.price * cartDish.amount)} KGS</span>
+                            <span className="col-3">x{cartDish.amount}</span>
+                            <span className="col-3">{(cartDish.dish.price * cartDish.amount)} KGS</span>
+                            <button
+                                className="btn col-2 btn-danger btn-sm ml-2"
+                                onClick={() => RemoveDishFromOrder(cartDish.dish.id)}
+                            >
+                                Remove
+                            </button>
                         </div>
                     ))}
                     <div className="row align-items-center">
@@ -80,12 +99,13 @@ const UserCart: React.FC= () => {
                     </button>
                     <button
                         className="btn btn-success"
-                        onClick={addOrder}                    >
+                        onClick={addOrder}
+                    >
                         Order
                     </button>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

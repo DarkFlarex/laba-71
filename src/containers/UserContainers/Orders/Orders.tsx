@@ -14,9 +14,11 @@ const Orders: React.FC = () => {
 
     const removeOrder = async (id: string) => {
         try {
-            await dispatch(deleteOrder(id)).unwrap();
-            await dispatch(fetchOrders()).unwrap();
-            toast.success('Order deleted');
+            if (window.confirm('Are you sure you want to delete this order?')) {
+                await dispatch(deleteOrder(id)).unwrap();
+                await dispatch(fetchOrders()).unwrap();
+                toast.success('Order deleted');
+            }
         } catch (error) {
             toast.error('Could not delete Order!');
         }
@@ -36,30 +38,36 @@ const Orders: React.FC = () => {
                     <Spinner />
                 ) : (
                     orders.map((order) => (
-                        <div key={order.id} className="card mb-2">
-                            <div className="card-body">
-                                {order.dishes.map((cartDish, id) => (
-                                    <div key={id} className="d-flex justify-content-between mb-2">
-                                        <span>{cartDish.amount} x {cartDish.dish.title}</span>
-                                        <span>{cartDish.amount * cartDish.dish.price} KGS</span>
+                        <div key={order.id} className="card mb-2 d-flex">
+                            <div className="card-body d-flex align-items-center justify-content-between">
+                                <div className="col-6">
+                                    {order.dishes.map((cartDish, id) => (
+                                        <div key={id} className="d-flex justify-content-between mb-2">
+                                            <span>{cartDish.amount} x {cartDish.dish.title}</span>
+                                            <span>
+                                                <strong>
+                                                    {cartDish.amount * cartDish.dish.price} KGS
+                                                </strong>
+                                            </span>
+                                        </div>
+                                    ))}
+                                    <div className="d-flex justify-content-between mb-2">
+                                        <span>Delivery</span>
+                                        <strong>{delivery} KGS</strong>
                                     </div>
-                                ))}
-                                <div className="d-flex justify-content-between mb-2">
-                                    <span>Delivery:</span>
-                                    <strong>{delivery} KGS</strong>
                                 </div>
-                                <div className="d-flex justify-content-between">
+                                <div className="d-flex flex-column col-3">
                                     <span>Order total:</span>
                                     <strong>{order.totalPrice} KGS</strong>
+                                    <button
+                                        className="btn btn-danger mt-2"
+                                        onClick={() => removeOrder(order.id)}
+                                        disabled={deleteLoading === order.id}
+                                    >
+                                        {deleteLoading && deleteLoading === order.id && (<ButtonSpinner/>)}
+                                        Complete Order
+                                    </button>
                                 </div>
-                                <button
-                                    className="btn btn-danger mt-2"
-                                    onClick={() => removeOrder(order.id)}
-                                    disabled={deleteLoading === order.id}
-                                >
-                                    {deleteLoading && deleteLoading === order.id && (<ButtonSpinner />)}
-                                    Complete Order
-                                </button>
                             </div>
                         </div>
                     ))

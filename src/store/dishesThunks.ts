@@ -92,8 +92,8 @@ export const fetchOrders = createAsyncThunk<Order[], void, { dispatch: AppDispat
 );
 
 export const deleteOrder = createAsyncThunk<void, string, { state: RootState }>(
-    'orders/deleteContact',
-    async (ContactId) => {
-        await axiosApi.delete('/orders/' + ContactId + '.json');
+    'orders/deleteOrder',
+    async (orderId) => {
+        await axiosApi.delete(`/orders/${orderId}.json`);
     },
 );

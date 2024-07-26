@@ -14,8 +14,10 @@ const AdminDishes = () => {
 
 
     const removeDish = async (id: string) => {
-        await dispatch(deleteDish(id));
-        await dispatch(fetchDishes());
+        if (window.confirm('Are you sure you want to delete this dish?')) {
+            await dispatch(deleteDish(id));
+            await dispatch(fetchDishes());
+        }
     };
 
     useEffect(() => {
@@ -24,22 +26,26 @@ const AdminDishes = () => {
 
     return (
         <>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center mb-5">
                 <h5>Dishes</h5>
                 <Link className="btn btn-success" to={'/admin/dishes/new-dish'}>Add new dish</Link>
             </div>
-            {dishesLoading ? (
-                <Spinner/>
-            ) : (
-                dishes.map((dish) => (
-                    <AdminDishesItem
-                        key={dish.id}
-                        dish={dish}
-                        onDelete={() => removeDish(dish.id)}
-                        deleteLoading={deleteLoading}
-                    />
-                ))
-            )}
+            <div className="cards">
+                {dishesLoading ? (
+                    <Spinner/>
+                ) : dishes.length > 0 ?  (
+                    dishes.map((dish) => (
+                        <AdminDishesItem
+                            key={dish.id}
+                            dish={dish}
+                            onDelete={() => removeDish(dish.id)}
+                            deleteLoading={deleteLoading}
+                        />
+                    ))
+                ) : (
+                    <h5>Заказы пусты, заполните их</h5>
+                )}
+            </div>
         </>
     );
 };

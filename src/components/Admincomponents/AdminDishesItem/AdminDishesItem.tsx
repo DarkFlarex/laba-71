@@ -13,31 +13,34 @@ interface Props {
 const AdminDishesItem:React.FC<Props> = ({dish, onDelete,deleteLoading}) => {
     return (
         <>
-            <div className="card mb-3 p-3 col-5 border border-secondary">
+            <div className="card mb-3 p-3 col-7 border border-secondary">
                 <div className="d-flex align-items-center">
                     <div
-                        className="contact-img me-5"
+                        className="contact-img me-3"
                         style={{
                             background: `url(${dish.image}) no-repeat center center / cover`,
                             width: '100px',
-                            height: '100px'
+                            height: '100px',
+                            borderRadius: '8px'
                         }}
                     />
-                    <div className="contact-info">
-                        <h5>{dish.title}</h5>
-                        <span>{dish.price} KGS</span>
+                    <div className="d-flex justify-content-between flex-grow-1 me-3">
+                        <h5 className="mb-1">{dish.title}</h5>
+                        <span className="text-muted"><strong> {dish.price} KGS</strong></span>
                     </div>
-                    <Link className="btn btn-primary" to={`/admin/dishes/edit-dish/${dish.id}`}>
-                        Edit
-                    </Link>
-                    <button
-                        className="btn btn-danger"
-                        onClick={onDelete}
-                        disabled={deleteLoading ? deleteLoading === dish.id : false}
-                    >
-                        {deleteLoading && deleteLoading === dish.id && (<ButtonSpinner/>)}
-                        Delete
-                    </button>
+                    <div className="d-flex gap-2">
+                        <Link className="btn btn-primary" to={`/admin/dishes/edit-dish/${dish.id}`}>
+                            Edit
+                        </Link>
+                        <button
+                            className="btn btn-danger"
+                            onClick={onDelete}
+                            disabled={deleteLoading ? deleteLoading === dish.id : false}
+                        >
+                            {deleteLoading && deleteLoading === dish.id && <ButtonSpinner/>}
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

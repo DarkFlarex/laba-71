@@ -6,7 +6,12 @@ interface Props extends React.PropsWithChildren {
     onClose: React.MouseEventHandler;
 }
 
-const Modal: React.FC<Props> = ({ show, title, children, onClose }) => {
+const Modal: React.FC<Props> = ({
+    show,
+    title,
+    children,
+    onClose
+}) => {
     return (
         <>
             <div
