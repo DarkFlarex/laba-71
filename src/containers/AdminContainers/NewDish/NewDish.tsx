@@ -1,9 +1,9 @@
-import DishForm from "../../components/DishForm/DishForm";
+import DishForm from "../../../components/Admincomponents/DishForm/DishForm";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectCreateDishLoading} from "../../store/dishesSlice";
-import {ApiDish} from "../../types";
-import {createDish} from "../../store/dishesThunks";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {selectCreateDishLoading} from "../../../store/dishesSlice";
+import {ApiDish} from "../../../types";
+import {createDish} from "../../../store/dishesThunks";
 import {toast} from "react-toastify";
 
 const NewDish = () => {

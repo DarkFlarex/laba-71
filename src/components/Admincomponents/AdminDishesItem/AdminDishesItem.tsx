@@ -1,7 +1,7 @@
-import {Dish} from "../../types";
+import {Dish} from "../../../types";
 import React from "react";
 import {Link} from "react-router-dom";
-import ButtonSpinner from "../Spinner/ButtonSpinner";
+import ButtonSpinner from "../../Spinner/ButtonSpinner";
 
 interface Props {
     dish:Dish;

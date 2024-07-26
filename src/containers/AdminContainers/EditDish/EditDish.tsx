@@ -1,12 +1,12 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectFetchOneDishLoading, selectOneDish, selectUpdateDishLoading} from "../../store/dishesSlice";
-import {ApiDish} from "../../types";
-import {fetchOneDish, updateDish} from "../../store/dishesThunks";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {selectFetchOneDishLoading, selectOneDish, selectUpdateDishLoading} from "../../../store/dishesSlice";
+import {ApiDish} from "../../../types";
+import {fetchOneDish, updateDish} from "../../../store/dishesThunks";
 import {toast} from "react-toastify";
 import {useEffect} from "react";
-import Spinner from "../../components/Spinner/Spinner";
-import DishForm from "../../components/DishForm/DishForm";
+import Spinner from "../../../components/Spinner/Spinner";
+import DishForm from "../../../components/Admincomponents/DishForm/DishForm";
 
 const EditDish = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const EditDish = () => {
     const onSubmit = async (apiDish: ApiDish) => {
         try {
             await dispatch(updateDish({ id, apiDish })).unwrap();
-            navigate('/');
+            navigate('/admin/dishes');
             toast.success('Dish updated!');
         } catch (e) {
             toast.error('Could not update dish!');

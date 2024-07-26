@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Toolbar: React.FC = () => {
+const AdminToolbar: React.FC = () => {
     return (
         <nav className="navbar navbar-dark bg-primary">
             <div className="container-fluid">
@@ -25,4 +25,4 @@ const Toolbar: React.FC = () => {
     );
 };
 
-export default Toolbar;
+export default AdminToolbar;

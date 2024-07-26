@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectDeleteDishLoading, selectDishes, selectFetchDishesLoading} from "../../store/dishesSlice";
-import AdminDishesItem from "../../components/AdminDishesItem/AdminDishesItem";
-import {deleteDish, fetchDishes} from "../../store/dishesThunks";
-import Spinner from "../../components/Spinner/Spinner";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {selectDeleteDishLoading, selectDishes, selectFetchDishesLoading} from "../../../store/dishesSlice";
+import AdminDishesItem from "../../../components/Admincomponents/AdminDishesItem/AdminDishesItem";
+import {deleteDish, fetchDishes} from "../../../store/dishesThunks";
+import Spinner from "../../../components/Spinner/Spinner";
 import {Link} from "react-router-dom";
 
 const AdminDishes = () => {
@@ -26,7 +26,7 @@ const AdminDishes = () => {
         <>
             <div className="d-flex justify-content-between align-items-center">
                 <h5>Dishes</h5>
-                <Link className="btn btn-success" to={'/admin/dishes/new-dishes'}>Add new dish</Link>
+                <Link className="btn btn-success" to={'/admin/dishes/new-dish'}>Add new dish</Link>
             </div>
             {dishesLoading ? (
                 <Spinner/>

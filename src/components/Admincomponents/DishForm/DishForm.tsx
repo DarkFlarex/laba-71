@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {ApiDish, DishMutation} from "../../types";
-import ButtonSpinner from "../Spinner/ButtonSpinner";
+import {ApiDish, DishMutation} from "../../../types";
+import ButtonSpinner from "../../Spinner/ButtonSpinner";
 
 interface Props {
     onSubmit: (dish: ApiDish) => void;

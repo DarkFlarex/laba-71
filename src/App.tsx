@@ -1,27 +1,30 @@
 import './App.css'
-import Toolbar from "./components/Toolbar/Toolbar";
-import {Navigate, Route, Routes} from "react-router-dom";
-import NewDish from "./containers/NewDish/NewDish";
-import AdminDishes from "./containers/AdminDishes/AdminDishes";
-import EditDish from "./containers/EditDish/EditDish";
+import AdminToolbar from "./components/Admincomponents/AdminToolbar/AdminToolbar";
+import {Route, Routes, useLocation} from "react-router-dom";
+import NewDish from "./containers/AdminContainers/NewDish/NewDish";
+import AdminDishes from "./containers/AdminContainers/AdminDishes/AdminDishes";
+import EditDish from "./containers/AdminContainers/EditDish/EditDish";
+import UserDishes from "./containers/UserContainers/UserDishes";
+import UserToolbar from "./components/UserComponents/UserToolbar/UserToolbar";
 
-function App() {
-
+const App =()=> {
+    const location = useLocation();
+    const isAdminRoute = location.pathname.startsWith('/admin');
   return (
-    <>
-        <header>
-            <Toolbar/>
-        </header>
-        <main className='container container-main  pt-5'>
-            <Routes>
-                <Route path="/" element={<Navigate to="/admin/dishes" />} />
-                <Route path="/admin/dishes" element={<AdminDishes/>}/>
-                <Route path="/admin/dishes/new-dishes" element={<NewDish />} />
-                <Route path="/admin/dishes/edit-dish/:id" element={<EditDish />}/>
-                <Route path="*" element={<h1>Not found!</h1>}/>
-            </Routes>
-        </main>
-        </>
+      <>
+          <header>
+              {isAdminRoute ? <AdminToolbar /> : <UserToolbar />}
+          </header>
+          <main className='container container-main pt-5'>
+              <Routes>
+                  <Route path="/" element={<UserDishes/>}/>
+                  <Route path="/admin/dishes" element={<AdminDishes/>}/>
+                  <Route path="/admin/dishes/new-dish" element={<NewDish/>}/>
+                  <Route path="/admin/dishes/edit-dish/:id" element={<EditDish/>}/>
+                  <Route path="*" element={<h1>Not found!</h1>}/>
+              </Routes>
+          </main>
+      </>
   )
 }
 
