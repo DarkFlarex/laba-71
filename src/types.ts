@@ -21,3 +21,16 @@ export interface CartDish {
     dish: Dish;
     amount: number;
 }
+
+export interface ApiOrder {
+    dishes: CartDish[];
+}
+
+export interface ApiOrders {
+    [id: string]: ApiOrder;
+}
+
+export interface Order extends ApiOrder {
+    id: string;
+    totalPrice: number;
+}

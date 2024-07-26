@@ -4,8 +4,9 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import NewDish from "./containers/AdminContainers/NewDish/NewDish";
 import AdminDishes from "./containers/AdminContainers/AdminDishes/AdminDishes";
 import EditDish from "./containers/AdminContainers/EditDish/EditDish";
-import UserDishes from "./containers/UserContainers/UserDishes";
+import UserDishes from "./containers/UserContainers/UserDishes/UserDishes";
 import UserToolbar from "./components/UserComponents/UserToolbar/UserToolbar";
+import Orders from "./containers/UserContainers/Orders/Orders";
 
 const App =()=> {
     const location = useLocation();
@@ -21,6 +22,7 @@ const App =()=> {
                   <Route path="/admin/dishes" element={<AdminDishes/>}/>
                   <Route path="/admin/dishes/new-dish" element={<NewDish/>}/>
                   <Route path="/admin/dishes/edit-dish/:id" element={<EditDish/>}/>
+                  <Route path="/admin/orders" element={<Orders/>}/>
                   <Route path="*" element={<h1>Not found!</h1>}/>
               </Routes>
           </main>

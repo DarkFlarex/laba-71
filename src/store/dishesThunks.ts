@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {ApiDish, ApiDishes, Dish} from "../types";
+import {ApiDish, ApiDishes, ApiOrders, Dish, Order} from "../types";
 import axiosApi from "../axiosApi";
 import {AppDispatch, RootState} from "../app/store";
 
@@ -65,5 +65,35 @@ export const deleteDish = createAsyncThunk<void, string, { state: RootState }>(
     'dishes/deleteDish',
     async (dishId) => {
         await axiosApi.delete('/dishes/' + dishId + '.json');
+    },
+);
+
+export const fetchOrders = createAsyncThunk<Order[], void, { dispatch: AppDispatch }>(
+    'orders/fetchOrders',
+    async () => {
+        const { data: orders } = await axiosApi.get<ApiOrders | null>('/orders.json');
+        if (!orders) return [];
+
+        const delivery = 150;
+
+        return Object.keys(orders).map(id => {
+            const order = orders[id];
+            const totalPrice = order.dishes.reduce((sum, cartDish) => {
+                return sum + cartDish.amount * cartDish.dish.price;
+            }, delivery);
+
+            return {
+                id,
+                dishes: order.dishes,
+                totalPrice,
+            };
+        });
+    }
+);
+
+export const deleteOrder = createAsyncThunk<void, string, { state: RootState }>(
+    'orders/deleteContact',
+    async (ContactId) => {
+        await axiosApi.delete('/orders/' + ContactId + '.json');
     },
 );
